@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Shengmilo 产品报价表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007AFF;
+            --secondary: #34C759;
+            --background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
+            --price-color: #FF6B6B;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            background: var(--background);
+        }
+        .product-card {
+            transition: transform 0.3s ease;
+            max-height: 1200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid rgba(0, 122, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            background-color: white;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 122, 255, 0.08);
+        }
+        .product-card:hover {
+            transform: scale(1.02);
+        }
+        .product-name {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.5s ease-out forwards;
+            opacity: 0;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .product-image-container {
+            width: 100%;
+            height: 250px;
+            margin: 1rem 0;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            position: relative;
+            margin-top: 4rem;
+        }
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-image-container:hover img {
+            transform: scale(1.05);
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .metric-card {
+            background-color: #f3faff;
+            border: 1px solid #c2e0ff;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .metric-card:hover {
+            background-color: #e6f2ff;
+        }
+        .metric-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .price-section {
+            background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            margin: 1.5625rem 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(0, 122, 255, 0.1);
+        }
+        .price-section:hover {
+            transform: translateY(-0.125rem);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 122, 255, 0.08);
+        }
+        .price-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.125rem;
+        }
+        .price-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(0, 122, 255, 0.1);
+            border-radius: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.9375rem;
+        }
+        .price-icon i {
+            color: var(--primary);
+            font-size: 1.2em;
+        }
+        .price-tier {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+            gap: 0.9375rem;
+        }
+        .tier-card {
+            padding: 1.125rem;
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0, 122, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .tier-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #007AFF11 0%, #34C75911 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tier-card:hover::before {
+            opacity: 1;
+        }
+        .tier-range {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 0.5rem;
+        }
+        .tier-price {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: var(--price-color);
+            position: relative;
+        }
+        .tier-price::after {
+            content: 'CNY';
+            font-size: 0.7em;
+            color: #888;
+            margin-left: 0.375rem;
+            font-weight: normal;
+        }
+        @media (max-width: 480px) {
+            .price-tier {
+                grid-template-columns: 1fr;
+            }
+            .tier-card {
+                padding: 0.9375rem;
+            }
+        }
+        table.spec-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        table.spec-table tr:last-child td {
+            border-bottom: none;
+        }
+        table.spec-table td:first-child {
+            font-weight: 600;
+            color: #4a5568;
+            width: 30%;
+        }
+        /* S600 板块 - 金属灰渐变 */
+        .product-card:nth-child(1) .product-name {
+            background: linear-gradient(45deg, #444444, #777777, #a0a0a0);
+            color: white;
+        }
+        /* S700 板块 - 金属黄渐变 */
+        .product-card:nth-child(2) .product-name {
+            background: linear-gradient(45deg, #d4af37, #e6c26e, #f3d995);
+            color: #333;
+        }
+        /* MX06 板块 - 金属白渐变 */
+        .product-card:nth-child(3) .product-name {
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0, #ffffff);
+            color: #333;
+        }
+    </style>
+</head>
+<body class="p-5">
+    <div class="container mx-auto max-w-2xl space-y-8">
+        <!-- S600 -->
+        <div class="product-card">
+            <div class="product-name">S600</div>
+            <div class="product-image-container">
+                <img src="images/s600.jpg" alt="S600 产品细节图">
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-tachometer-alt"></i>
+                    <div class="metric-value">45 km/h</div>
+                    <div class="metric-label">最高车速</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-weight-hanging"></i>
+                    <div class="metric-value">150 kg</div>
+                    <div class="metric-label">最大载重</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-battery-full"></i>
+                    <div class="metric-value">48V 17.5Ah</div>
+                    <div class="metric-label">电池容量</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-road"></i>
+                    <div class="metric-value">30 - 40km</div>
+                    <div class="metric-label">纯电续航</div>
+                </div>
+            </div>
+            <div class="price-section">
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>阶梯报价 (EXW不含税)</h3>
+                </div>
+                <div class="price-tier">
+                    <div class="tier-card">
+                        <div class="tier-range">50 - 300台</div>
+                        <div class="tier-price">5200</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">300 - 1000台</div>
+                        <div class="tier-price">5000</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">1000+台</div>
+                        <div class="tier-price">4900</div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-specs border-t border-gray-200 pt-5">
+                <table class="spec-table w-full">
+                    <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
+                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
+                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
+                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 外箱尺寸</td><td>1520×310×820mm</td></tr>
+                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
+                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
+                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
+                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
+                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电机参数 - 额定功率</td><td>750W×2</td></tr>
+                    <tr><td>电机参数 - 瞬时最大功率</td><td>1200W×2</td></tr>
+                    <tr><td>电机参数 - 最大转速</td><td>340rpm</td></tr>
+                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
+                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
+                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
+                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
+                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
+                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
+                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
+                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
+                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
+                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>车架颜色</td><td>金属灰</td></tr>
+                </table>
+            </div>
+        </div>
+        <!-- S700 -->
+        <div class="product-card">
+            <div class="product-name">S700</div>
+            <div class="product-image-container">
+                <img src="images/s700.jpg" alt="S700 产品细节图">
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-tachometer-alt"></i>
+                    <div class="metric-value">45 km/h</div>
+                    <div class="metric-label">最高车速</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-weight-hanging"></i>
+                    <div class="metric-value">150 kg</div>
+                    <div class="metric-label">最大载重</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-battery-full"></i>
+                    <div class="metric-value">48V 17.5Ah</div>
+                    <div class="metric-label">电池容量</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-road"></i>
+                    <div class="metric-value">30 - 40km</div>
+                    <div class="metric-label">纯电续航</div>
+                </div>
+            </div>
+            <div class="price-section">
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>阶梯报价 (EXW不含税)</h3>
+                </div>
+                <div class="price-tier">
+                    <div class="tier-card">
+                        <div class="tier-range">50 - 300台</div>
+                        <div class="tier-price">4900</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">300 - 1000台</div>
+                        <div class="tier-price">4700</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">1000+台</div>
+                        <div class="tier-price">4600</div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-specs border-t border-gray-200 pt-5">
+                <table class="spec-table w-full">
+                    <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
+                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
+                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
+                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 外箱尺寸</td><td>1520×310×820mm</td></tr>
+                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
+                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
+                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
+                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
+                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电机参数 - 额定功率</td><td>750W×2</td></tr>
+                    <tr><td>电机参数 - 瞬时最大功率</td><td>1200W×2</td></tr>
+                    <tr><td>电机参数 - 最大转速</td><td>340rpm</td></tr>
+                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
+                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
+                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
+                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
+                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
+                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
+                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
+                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
+                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
+                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>车架颜色</td><td>棕</td></tr>
+                </table>
+            </div>
+        </div>
+        <!-- MX06 -->
+        <div class="product-card">
+            <div class="product-name">MX06</div>
+            <div class="product-image-container">
+                <img src="images/mx06.jpg" alt="MX06 产品细节图">
+            </div>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-tachometer-alt"></i>
+                    <div class="metric-value">42 km/h</div>
+                    <div class="metric-label">最高车速</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-weight-hanging"></i>
+                    <div class="metric-value">150 kg</div>
+                    <div class="metric-label">最大载重</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-battery-full"></i>
+                    <div class="metric-value">48V 17.5Ah</div>
+                    <div class="metric-label">电池容量</div>
+                </div>
+                <div class="metric-card">
+                    <i class="metric-icon fas fa-road"></i>
+                    <div class="metric-value">30 - 40km</div>
+                    <div class="metric-label">纯电续航</div>
+                </div>
+            </div>
+            <div class="price-section">
+                <div class="price-header">
+                    <div class="price-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>阶梯报价 (EXW不含税)</h3>
+                </div>
+                <div class="price-tier">
+                    <div class="tier-card">
+                        <div class="tier-range">50 - 300台</div>
+                        <div class="tier-price">4200</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">300 - 1000台</div>
+                        <div class="tier-price">4000</div>
+                    </div>
+                    <div class="tier-card">
+                        <div class="tier-range">1000+台</div>
+                        <div class="tier-price">3900</div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-specs border-t border-gray-200 pt-5">
+                <table class="spec-table w-full">
+                    <tr><td>装柜数量</td><td>20尺柜：92台<br>40尺柜：184台<br>40尺高柜：216台</td></tr>
+                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
+                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
+                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>基本参数 - 外箱尺寸</td><td>1500×260×810mm</td></tr>
+                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
+                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
+                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
+                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
+                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
+                    <tr><td>电机参数 - 额定功率</td><td>500W×1</td></tr>
+                    <tr><td>电机参数 - 瞬时最大功率</td><td>1000W</td></tr>
+                    <tr><td>电机参数 - 最大转速</td><td>300rpm</td></tr>
+                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
+                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
+                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
+                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
+                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
+                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
+                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
+                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
+                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
+                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
+                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>车架颜色</td><td>棕</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    
