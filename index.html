@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shengmilo 产品报价表</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
@@ -12,225 +13,289 @@
             --background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
             --price-color: #FF6B6B;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
             background: var(--background);
+            padding: 1rem;
         }
-        .product-card {
-            transition: transform 0.3s ease;
-            max-height: 1200px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            position: relative;
-            border: 1px solid rgba(0, 122, 255, 0.1);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            background-color: white;
-            box-shadow: 0 0.5rem 1.5rem rgba(0, 122, 255, 0.08);
+
+        /* 选项卡按钮样式 */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            padding: 0.3rem;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            flex-wrap: wrap;
         }
-        .product-card:hover {
+
+        .tab-btn {
+            padding: 0.6rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            color: #4a5568;
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.15);
+        }
+
+        .tab-btn:hover {
             transform: scale(1.02);
         }
+
+        /* 产品卡片过渡效果 */
+        .product-card {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            display: none;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-radius: 0.75rem;
+            padding: 0;
+            background-color: white;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 122, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .product-card.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
         .product-name {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem 1.5rem;
-            border-top-left-radius: 1rem;
-            border-top-right-radius: 1rem;
-            font-size: 36px;
+            padding: 1rem;
+            font-size: 1.5rem;
             font-weight: 800;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.5s ease-out forwards;
-            opacity: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+            position: relative;
             z-index: 1;
-            letter-spacing: 1px;
         }
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+
         .product-image-container {
             width: 100%;
-            height: 250px;
-            margin: 1rem 0;
-            border-radius: 0.75rem;
+            aspect-ratio: 4/3;
+            margin: 0;
             overflow: hidden;
-            position: relative;
-            margin-top: 4rem;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .product-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             transition: transform 0.3s ease;
         }
+
         .product-image-container:hover img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
+
         .metric-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.75rem;
+            padding: 1rem;
         }
+
         .metric-card {
             background-color: #f3faff;
-            border: 1px solid #c2e0ff;
-            border-radius: 0.75rem;
-            padding: 1rem;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
             text-align: center;
             transition: background-color 0.3s ease;
         }
-        .metric-card:hover {
-            background-color: #e6f2ff;
-        }
+
         .metric-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        .metric-value {
             font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .metric-value {
+            font-size: 1.1rem;
             font-weight: 600;
             color: #333;
         }
+
         .metric-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #666;
         }
+
         .price-section {
-            background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
-            border-radius: 1rem;
-            padding: 1.25rem;
-            margin: 1.5625rem 0;
+            padding: 1rem;
+            margin: 0;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            border: 1px solid rgba(0, 122, 255, 0.1);
+            border-top: 1px solid #e2e8f0;
         }
-        .price-section:hover {
-            transform: translateY(-0.125rem);
-            box-shadow: 0 0.5rem 1.5rem rgba(0, 122, 255, 0.08);
-        }
+
         .price-header {
             display: flex;
             align-items: center;
-            margin-bottom: 1.125rem;
+            margin-bottom: 0.75rem;
         }
+
         .price-icon {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2rem;
+            height: 2rem;
             background: rgba(0, 122, 255, 0.1);
-            border-radius: 0.625rem;
+            border-radius: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 0.9375rem;
+            margin-right: 0.75rem;
         }
+
         .price-icon i {
             color: var(--primary);
-            font-size: 1.2em;
+            font-size: 1em;
         }
+
         .price-tier {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-            gap: 0.9375rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
         }
+
         .tier-card {
-            padding: 1.125rem;
+            padding: 0.75rem;
             background: white;
-            border-radius: 0.75rem;
+            border-radius: 0.5rem;
             border: 1px solid rgba(0, 122, 255, 0.05);
             transition: all 0.3s ease;
             position: relative;
+            text-align: center;
         }
-        .tier-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 0.75rem;
-            background: linear-gradient(135deg, #007AFF11 0%, #34C75911 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tier-card:hover::before {
-            opacity: 1;
-        }
+
         .tier-range {
             color: #666;
-            font-size: 0.95em;
-            margin-bottom: 0.5rem;
+            font-size: 0.8em;
+            margin-bottom: 0.25rem;
         }
+
         .tier-price {
-            font-size: 1.4em;
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--price-color);
-            position: relative;
         }
+
         .tier-price::after {
             content: 'CNY';
-            font-size: 0.7em;
+            font-size: 0.65em;
             color: #888;
-            margin-left: 0.375rem;
+            margin-left: 0.25rem;
             font-weight: normal;
         }
-        @media (max-width: 480px) {
-            .price-tier {
-                grid-template-columns: 1fr;
-            }
-            .tier-card {
-                padding: 0.9375rem;
-            }
+
+        .full-specs {
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
         }
+
+        table.spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
         table.spec-table td {
-            padding: 0.75rem;
+            padding: 0.5rem;
             border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
         }
+
         table.spec-table tr:last-child td {
             border-bottom: none;
         }
+
         table.spec-table td:first-child {
             font-weight: 600;
             color: #4a5568;
-            width: 30%;
+            width: 35%;
         }
-        /* S600 板块 - 金属灰渐变 */
+
         .product-card:nth-child(1) .product-name {
             background: linear-gradient(45deg, #444444, #777777, #a0a0a0);
             color: white;
         }
-        /* S700 板块 - 金属黄渐变 */
+
         .product-card:nth-child(2) .product-name {
             background: linear-gradient(45deg, #d4af37, #e6c26e, #f3d995);
             color: #333;
         }
-        /* MX06 板块 - 金属白渐变 */
+
         .product-card:nth-child(3) .product-name {
             background: linear-gradient(45deg, #e0e0e0, #f0f0f0, #ffffff);
             color: #333;
         }
+
+        @media (max-width: 480px) {
+            .price-tier {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-grid {
+                gap: 0.5rem;
+            }
+            
+            .metric-card {
+                padding: 0.5rem;
+            }
+            
+            .metric-icon {
+                font-size: 1.2rem;
+            }
+            
+            .metric-value {
+                font-size: 1rem;
+            }
+            
+            .metric-label {
+                font-size: 0.7rem;
+            }
+            
+            table.spec-table td {
+                padding: 0.4rem;
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
-<body class="p-5">
-    <div class="container mx-auto max-w-2xl space-y-8">
+<body>
+    <!-- 选项卡按钮 -->
+    <div class="tab-buttons">
+        <button class="tab-btn active" data-product="s600">S600</button>
+        <button class="tab-btn" data-product="s700">S700</button>
+        <button class="tab-btn" data-product="mx06">MX06</button>
+    </div>
+
+    <div class="container mx-auto">
         <!-- S600 -->
-        <div class="product-card">
+        <div id="s600" class="product-card active">
             <div class="product-name">S600</div>
             <div class="product-image-container">
-                <img src="images/s600.jpg" alt="S600 产品细节图">
+                <img src="s600.png" alt="S600 产品细节图">
             </div>
             <div class="metric-grid">
                 <div class="metric-card">
@@ -276,8 +341,8 @@
                     </div>
                 </div>
             </div>
-            <div class="full-specs border-t border-gray-200 pt-5">
-                <table class="spec-table w-full">
+            <div class="full-specs">
+                <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
                     <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
                     <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
@@ -317,11 +382,12 @@
                 </table>
             </div>
         </div>
+
         <!-- S700 -->
-        <div class="product-card">
+        <div id="s700" class="product-card">
             <div class="product-name">S700</div>
             <div class="product-image-container">
-                <img src="images/s700.jpg" alt="S700 产品细节图">
+                <img src="s700.png" alt="S700 产品细节图">
             </div>
             <div class="metric-grid">
                 <div class="metric-card">
@@ -367,8 +433,8 @@
                     </div>
                 </div>
             </div>
-            <div class="full-specs border-t border-gray-200 pt-5">
-                <table class="spec-table w-full">
+            <div class="full-specs">
+                <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
                     <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
                     <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
@@ -404,15 +470,16 @@
                     <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
                     <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
                     <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
-                    <tr><td>车架颜色</td><td>棕</td></tr>
+                    <tr><td>车架颜色</td><td>金属棕</td></tr>
                 </table>
             </div>
         </div>
+
         <!-- MX06 -->
-        <div class="product-card">
+        <div id="mx06" class="product-card">
             <div class="product-name">MX06</div>
             <div class="product-image-container">
-                <img src="images/mx06.jpg" alt="MX06 产品细节图">
+                <img src="mx06.png" alt="MX06 产品细节图">
             </div>
             <div class="metric-grid">
                 <div class="metric-card">
@@ -458,8 +525,8 @@
                     </div>
                 </div>
             </div>
-            <div class="full-specs border-t border-gray-200 pt-5">
-                <table class="spec-table w-full">
+            <div class="full-specs">
+                <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：92台<br>40尺柜：184台<br>40尺高柜：216台</td></tr>
                     <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
                     <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
@@ -495,11 +562,38 @@
                     <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
                     <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
                     <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
-                    <tr><td>车架颜色</td><td>棕</td></tr>
+                    <tr><td>车架颜色</td><td>金属白</td></tr>
                 </table>
             </div>
         </div>
     </div>
+
+    <script>
+        // 选项卡切换逻辑
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        function showProduct(productId) {
+            // 重置所有卡片和按钮
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            productCards.forEach(card => card.classList.remove('active'));
+
+            // 激活对应按钮和卡片
+            document.querySelector(`[data-product="${productId}"]`).classList.add('active');
+            document.getElementById(productId).classList.add('active');
+        }
+
+        // 初始加载显示第一个卡片
+        showProduct('s600');
+
+        // 点击事件监听
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.dataset.product;
+                showProduct(productId);
+            });
+        });
+    </script>
 </body>
 </html>
     
