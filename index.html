@@ -12,6 +12,8 @@
             --secondary: #34C759;
             --background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
             --price-color: #FF6B6B;
+            --section-bg: #f9fafb;
+            --category-bg: #f3f4f6;
         }
 
         body {
@@ -173,45 +175,65 @@
             font-size: 1em;
         }
 
-        .price-tier {
+        .retail-price-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
         }
 
-        .tier-card {
+        .price-item {
             padding: 0.75rem;
             background: white;
             border-radius: 0.5rem;
             border: 1px solid rgba(0, 122, 255, 0.05);
             transition: all 0.3s ease;
-            position: relative;
             text-align: center;
         }
 
-        .tier-range {
+        .price-type {
             color: #666;
-            font-size: 0.8em;
+            font-size: 0.9em;
             margin-bottom: 0.25rem;
         }
 
-        .tier-price {
-            font-size: 1.1em;
+        .price-amount {
+            font-size: 1.2em;
             font-weight: 600;
             color: var(--price-color);
         }
 
-        .tier-price::after {
-            content: 'CNY';
-            font-size: 0.65em;
+        .price-amount::after {
+            content: '元';
+            font-size: 0.7em;
             color: #888;
             margin-left: 0.25rem;
             font-weight: normal;
         }
 
-        .full-specs {
-            padding: 1rem;
-            border-top: 1px solid #e2e8f0;
+        /* 规格分类样式 */
+        .specs-section {
+            padding: 0;
+        }
+
+        .specs-category {
+            background: var(--category-bg);
+            padding: 0.75rem 1rem;
+            margin: 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            position: relative;
+        }
+
+        .specs-category::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
         }
 
         table.spec-table {
@@ -220,9 +242,9 @@
         }
 
         table.spec-table td {
-            padding: 0.5rem;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         table.spec-table tr:last-child td {
@@ -233,6 +255,7 @@
             font-weight: 600;
             color: #4a5568;
             width: 35%;
+            background: var(--section-bg);
         }
 
         .product-card:nth-child(1) .product-name {
@@ -251,7 +274,7 @@
         }
 
         @media (max-width: 480px) {
-            .price-tier {
+            .retail-price-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -276,8 +299,13 @@
             }
             
             table.spec-table td {
-                padding: 0.4rem;
+                padding: 0.5rem;
                 font-size: 0.85rem;
+            }
+            
+            .specs-category {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
             }
         }
     </style>
@@ -324,60 +352,90 @@
                     <div class="price-icon">
                         <i class="fas fa-tag"></i>
                     </div>
-                    <h3>阶梯报价 (EXW不含税)</h3>
+                    <h3>零售价</h3>
                 </div>
-                <div class="price-tier">
-                    <div class="tier-card">
-                        <div class="tier-range">50 - 300台</div>
-                        <div class="tier-price">5200</div>
+                <div class="retail-price-grid">
+                    <div class="price-item">
+                        <div class="price-type">国内零售价（包邮）</div>
+                        <div class="price-amount">5500</div>
                     </div>
-                    <div class="tier-card">
-                        <div class="tier-range">300 - 1000台</div>
-                        <div class="tier-price">5000</div>
-                    </div>
-                    <div class="tier-card">
-                        <div class="tier-range">1000+台</div>
-                        <div class="tier-price">4900</div>
+                    <div class="price-item">
+                        <div class="price-type">欧洲一件代发价（含运费含关税）</div>
+                        <div class="price-amount">8200</div>
                     </div>
                 </div>
             </div>
-            <div class="full-specs">
+            <div class="specs-section">
+                <div class="specs-category">装柜信息</div>
                 <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
-                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
-                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
-                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 外箱尺寸</td><td>1520×310×820mm</td></tr>
-                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
-                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
-                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
-                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
-                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
-                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
-                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
-                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
-                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电机参数 - 额定功率</td><td>750W×2</td></tr>
-                    <tr><td>电机参数 - 瞬时最大功率</td><td>1200W×2</td></tr>
-                    <tr><td>电机参数 - 最大转速</td><td>340rpm</td></tr>
-                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
-                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
-                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
-                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
-                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
-                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
-                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
-                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
-                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
-                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
-                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
-                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
-                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">基本参数</div>
+                <table class="spec-table">
+                    <tr><td>净重</td><td>36kg</td></tr>
+                    <tr><td>毛重</td><td>42kg</td></tr>
+                    <tr><td>外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>外箱尺寸</td><td>1520×310×820mm</td></tr>
+                    <tr><td>把手宽度</td><td>700mm</td></tr>
+                    <tr><td>展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                </table>
+                <div class="specs-category">产品性能</div>
+                <table class="spec-table">
+                    <tr><td>爬坡度</td><td>40°</td></tr>
+                    <tr><td>防水等级</td><td>45</td></tr>
+                </table>
+                <div class="specs-category">电池参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>电池类型</td><td>锂电池</td></tr>
+                </table>
+                <div class="specs-category">电机参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>额定功率</td><td>750W×2</td></tr>
+                    <tr><td>瞬时最大功率</td><td>1200W×2</td></tr>
+                    <tr><td>最大转速</td><td>340rpm</td></tr>
+                    <tr><td>最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机类型</td><td>无刷电机</td></tr>
+                </table>
+                <div class="specs-category">充电器参数</div>
+                <table class="spec-table">
+                    <tr><td>输出电压</td><td>220V</td></tr>
+                    <tr><td>充电时间</td><td>8小时</td></tr>
+                </table>
+                <div class="specs-category">制动系统</div>
+                <table class="spec-table">
+                    <tr><td>制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动距离</td><td>2 - 5m</td></tr>
+                </table>
+                <div class="specs-category">灯光系统</div>
+                <table class="spec-table">
+                    <tr><td>液晶显示屏</td><td>有</td></tr>
+                    <tr><td>前照明灯</td><td>有</td></tr>
+                    <tr><td>尾灯</td><td>有</td></tr>
+                    <tr><td>转向灯</td><td>无</td></tr>
+                </table>
+                <div class="specs-category">减震系统</div>
+                <table class="spec-table">
+                    <tr><td>前减震</td><td>有</td></tr>
+                    <tr><td>后减震</td><td>有</td></tr>
+                </table>
+                <div class="specs-category">折叠方式</div>
+                <table class="spec-table">
+                    <tr><td>立管把手</td><td>非折叠</td></tr>
+                    <tr><td>车身</td><td>非折叠</td></tr>
+                </table>
+                <div class="specs-category">轮胎</div>
+                <table class="spec-table">
+                    <tr><td>前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">车架颜色</div>
+                <table class="spec-table">
                     <tr><td>车架颜色</td><td>金属灰</td></tr>
                 </table>
             </div>
@@ -416,60 +474,90 @@
                     <div class="price-icon">
                         <i class="fas fa-tag"></i>
                     </div>
-                    <h3>阶梯报价 (EXW不含税)</h3>
+                    <h3>零售价</h3>
                 </div>
-                <div class="price-tier">
-                    <div class="tier-card">
-                        <div class="tier-range">50 - 300台</div>
-                        <div class="tier-price">4900</div>
+                <div class="retail-price-grid">
+                    <div class="price-item">
+                        <div class="price-type">国内零售价（包邮）</div>
+                        <div class="price-amount">5200</div>
                     </div>
-                    <div class="tier-card">
-                        <div class="tier-range">300 - 1000台</div>
-                        <div class="tier-price">4700</div>
-                    </div>
-                    <div class="tier-card">
-                        <div class="tier-range">1000+台</div>
-                        <div class="tier-price">4600</div>
+                    <div class="price-item">
+                        <div class="price-type">欧洲一件代发价（含运费含关税）</div>
+                        <div class="price-amount">7900</div>
                     </div>
                 </div>
             </div>
-            <div class="full-specs">
+            <div class="specs-section">
+                <div class="specs-category">装柜信息</div>
                 <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：83台<br>40尺柜：166台<br>40尺高柜：200台</td></tr>
-                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
-                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
-                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 外箱尺寸</td><td>1520×310×820mm</td></tr>
-                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
-                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
-                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
-                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
-                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
-                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
-                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
-                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
-                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电机参数 - 额定功率</td><td>750W×2</td></tr>
-                    <tr><td>电机参数 - 瞬时最大功率</td><td>1200W×2</td></tr>
-                    <tr><td>电机参数 - 最大转速</td><td>340rpm</td></tr>
-                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
-                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
-                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
-                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
-                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
-                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
-                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
-                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
-                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
-                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
-                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
-                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
-                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">基本参数</div>
+                <table class="spec-table">
+                    <tr><td>净重</td><td>36kg</td></tr>
+                    <tr><td>毛重</td><td>42kg</td></tr>
+                    <tr><td>外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>外箱尺寸</td><td>1520×310×820mm</td></tr>
+                    <tr><td>把手宽度</td><td>700mm</td></tr>
+                    <tr><td>展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                </table>
+                <div class="specs-category">产品性能</div>
+                <table class="spec-table">
+                    <tr><td>爬坡度</td><td>40°</td></tr>
+                    <tr><td>防水等级</td><td>45</td></tr>
+                </table>
+                <div class="specs-category">电池参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>电池类型</td><td>锂电池</td></tr>
+                </table>
+                <div class="specs-category">电机参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>额定功率</td><td>750W×2</td></tr>
+                    <tr><td>瞬时最大功率</td><td>1200W×2</td></tr>
+                    <tr><td>最大转速</td><td>340rpm</td></tr>
+                    <tr><td>最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机类型</td><td>无刷电机</td></tr>
+                </table>
+                <div class="specs-category">充电器参数</div>
+                <table class="spec-table">
+                    <tr><td>输出电压</td><td>220V</td></tr>
+                    <tr><td>充电时间</td><td>8小时</td></tr>
+                </table>
+                <div class="specs-category">制动系统</div>
+                <table class="spec-table">
+                    <tr><td>制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动距离</td><td>2 - 5m</td></tr>
+                </table>
+                <div class="specs-category">灯光系统</div>
+                <table class="spec-table">
+                    <tr><td>液晶显示屏</td><td>有</td></tr>
+                    <tr><td>前照明灯</td><td>有</td></tr>
+                    <tr><td>尾灯</td><td>有</td></tr>
+                    <tr><td>转向灯</td><td>无</td></tr>
+                </table>
+                <div class="specs-category">减震系统</div>
+                <table class="spec-table">
+                    <tr><td>前减震</td><td>有</td></tr>
+                    <tr><td>后减震</td><td>有</td></tr>
+                </table>
+                <div class="specs-category">折叠方式</div>
+                <table class="spec-table">
+                    <tr><td>立管把手</td><td>非折叠</td></tr>
+                    <tr><td>车身</td><td>非折叠</td></tr>
+                </table>
+                <div class="specs-category">轮胎</div>
+                <table class="spec-table">
+                    <tr><td>前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">车架颜色</div>
+                <table class="spec-table">
                     <tr><td>车架颜色</td><td>金属棕</td></tr>
                 </table>
             </div>
@@ -508,60 +596,90 @@
                     <div class="price-icon">
                         <i class="fas fa-tag"></i>
                     </div>
-                    <h3>阶梯报价 (EXW不含税)</h3>
+                    <h3>零售价</h3>
                 </div>
-                <div class="price-tier">
-                    <div class="tier-card">
-                        <div class="tier-range">50 - 300台</div>
-                        <div class="tier-price">4200</div>
+                <div class="retail-price-grid">
+                    <div class="price-item">
+                        <div class="price-type">国内零售价（包邮）</div>
+                        <div class="price-amount">4500</div>
                     </div>
-                    <div class="tier-card">
-                        <div class="tier-range">300 - 1000台</div>
-                        <div class="tier-price">4000</div>
-                    </div>
-                    <div class="tier-card">
-                        <div class="tier-range">1000+台</div>
-                        <div class="tier-price">3900</div>
+                    <div class="price-item">
+                        <div class="price-type">欧洲一件代发价（含运费含关税）</div>
+                        <div class="price-amount">6600</div>
                     </div>
                 </div>
             </div>
-            <div class="full-specs">
+            <div class="specs-section">
+                <div class="specs-category">装柜信息</div>
                 <table class="spec-table">
                     <tr><td>装柜数量</td><td>20尺柜：92台<br>40尺柜：184台<br>40尺高柜：216台</td></tr>
-                    <tr><td>基本参数 - 净重</td><td>36kg</td></tr>
-                    <tr><td>基本参数 - 毛重</td><td>42kg</td></tr>
-                    <tr><td>基本参数 - 外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
-                    <tr><td>基本参数 - 外箱尺寸</td><td>1500×260×810mm</td></tr>
-                    <tr><td>基本参数 - 把手宽度</td><td>700mm</td></tr>
-                    <tr><td>基本参数 - 展开车身尺寸</td><td>1850mm</td></tr>
-                    <tr><td>基本参数 - 折叠车身尺寸</td><td>/</td></tr>
-                    <tr><td>基本参数 - 踏板宽度</td><td>94mm</td></tr>
-                    <tr><td>基本参数 - 踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
-                    <tr><td>产品性能 - 爬坡度</td><td>40°</td></tr>
-                    <tr><td>产品性能 - 防水等级</td><td>45</td></tr>
-                    <tr><td>电池参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电池参数 - 电池类型</td><td>锂电池</td></tr>
-                    <tr><td>电机参数 - 标准电压</td><td>48V</td></tr>
-                    <tr><td>电机参数 - 额定功率</td><td>500W×1</td></tr>
-                    <tr><td>电机参数 - 瞬时最大功率</td><td>1000W</td></tr>
-                    <tr><td>电机参数 - 最大转速</td><td>300rpm</td></tr>
-                    <tr><td>电机参数 - 最大输出扭力</td><td>160N·m</td></tr>
-                    <tr><td>电机参数 - 电机类型</td><td>无刷电机</td></tr>
-                    <tr><td>充电器参数 - 输出电压</td><td>220V</td></tr>
-                    <tr><td>充电器参数 - 充电时间</td><td>8小时</td></tr>
-                    <tr><td>制动系统 - 制动方式</td><td>液压制动</td></tr>
-                    <tr><td>制动系统 - 制动距离</td><td>2 - 5m</td></tr>
-                    <tr><td>灯光系统 - 液晶显示屏</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 前照明灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 尾灯</td><td>有</td></tr>
-                    <tr><td>灯光系统 - 转向灯</td><td>无</td></tr>
-                    <tr><td>减震系统 - 前减震</td><td>有</td></tr>
-                    <tr><td>减震系统 - 后减震</td><td>有</td></tr>
-                    <tr><td>折叠方式 - 立管把手</td><td>非折叠</td></tr>
-                    <tr><td>折叠方式 - 车身</td><td>非折叠</td></tr>
-                    <tr><td>轮胎 - 前轮</td><td>26英寸（钢圈）</td></tr>
-                    <tr><td>轮胎 - 后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">基本参数</div>
+                <table class="spec-table">
+                    <tr><td>净重</td><td>36kg</td></tr>
+                    <tr><td>毛重</td><td>42kg</td></tr>
+                    <tr><td>外箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>内彩箱材质</td><td>双层纸箱或硬纸箱</td></tr>
+                    <tr><td>外箱尺寸</td><td>1500×260×810mm</td></tr>
+                    <tr><td>把手宽度</td><td>700mm</td></tr>
+                    <tr><td>展开车身尺寸</td><td>1850mm</td></tr>
+                    <tr><td>折叠车身尺寸</td><td>/</td></tr>
+                    <tr><td>踏板宽度</td><td>94mm</td></tr>
+                    <tr><td>踏板离地高度</td><td>MIN 170mm / MAX 345mm</td></tr>
+                </table>
+                <div class="specs-category">产品性能</div>
+                <table class="spec-table">
+                    <tr><td>爬坡度</td><td>40°</td></tr>
+                    <tr><td>防水等级</td><td>45</td></tr>
+                </table>
+                <div class="specs-category">电池参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>电池类型</td><td>锂电池</td></tr>
+                </table>
+                <div class="specs-category">电机参数</div>
+                <table class="spec-table">
+                    <tr><td>标准电压</td><td>48V</td></tr>
+                    <tr><td>额定功率</td><td>500W×1</td></tr>
+                    <tr><td>瞬时最大功率</td><td>1000W</td></tr>
+                    <tr><td>最大转速</td><td>300rpm</td></tr>
+                    <tr><td>最大输出扭力</td><td>160N·m</td></tr>
+                    <tr><td>电机类型</td><td>无刷电机</td></tr>
+                </table>
+                <div class="specs-category">充电器参数</div>
+                <table class="spec-table">
+                    <tr><td>输出电压</td><td>220V</td></tr>
+                    <tr><td>充电时间</td><td>8小时</td></tr>
+                </table>
+                <div class="specs-category">制动系统</div>
+                <table class="spec-table">
+                    <tr><td>制动方式</td><td>液压制动</td></tr>
+                    <tr><td>制动距离</td><td>2 - 5m</td></tr>
+                </table>
+                <div class="specs-category">灯光系统</div>
+                <table class="spec-table">
+                    <tr><td>液晶显示屏</td><td>有</td></tr>
+                    <tr><td>前照明灯</td><td>有</td></tr>
+                    <tr><td>尾灯</td><td>有</td></tr>
+                    <tr><td>转向灯</td><td>无</td></tr>
+                </table>
+                <div class="specs-category">减震系统</div>
+                <table class="spec-table">
+                    <tr><td>前减震</td><td>有</td></tr>
+                    <tr><td>后减震</td><td>有</td></tr>
+                </table>
+                <div class="specs-category">折叠方式</div>
+                <table class="spec-table">
+                    <tr><td>立管把手</td><td>非折叠</td></tr>
+                    <tr><td>车身</td><td>非折叠</td></tr>
+                </table>
+                <div class="specs-category">轮胎</div>
+                <table class="spec-table">
+                    <tr><td>前轮</td><td>26英寸（钢圈）</td></tr>
+                    <tr><td>后轮</td><td>26英寸（钢圈）</td></tr>
+                </table>
+                <div class="specs-category">车架颜色</div>
+                <table class="spec-table">
                     <tr><td>车架颜色</td><td>金属白</td></tr>
                 </table>
             </div>
@@ -596,4 +714,3 @@
     </script>
 </body>
 </html>
-    
