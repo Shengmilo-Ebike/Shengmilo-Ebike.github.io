@@ -14,6 +14,7 @@
             --price-color: #FF6B6B;
             --section-bg: #f9fafb;
             --category-bg: #f3f4f6;
+            --platform-bg: #f0f7ff;
         }
 
         body {
@@ -258,6 +259,89 @@
             background: var(--section-bg);
         }
 
+        /* 各平台参考价格样式 */
+        .platform-section {
+            padding: 1rem;
+            margin: 0;
+            border-top: 1px solid #e2e8f0;
+            background-color: var(--platform-bg);
+        }
+
+        .platform-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .platform-icon {
+            width: 2rem;
+            height: 2rem;
+            background: rgba(0, 122, 255, 0.15);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+        }
+
+        .platform-icon i {
+            color: var(--primary);
+            font-size: 1em;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .region-block {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .region-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .platform-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .platform-item:last-child {
+            border-bottom: none;
+        }
+
+        .platform-name {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .platform-price {
+            text-align: right;
+        }
+
+        .normal-price {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .promo-price {
+            color: var(--price-color);
+            font-weight: 600;
+        }
+
         .product-card:nth-child(1) .product-name {
             background: linear-gradient(45deg, #444444, #777777, #a0a0a0);
             color: white;
@@ -311,6 +395,16 @@
             .specs-category {
                 font-size: 1rem;
                 padding: 0.5rem 1rem;
+            }
+
+            .platform-item {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .platform-price {
+                text-align: right;
+                margin-top: 0;
             }
         }
     </style>
@@ -373,6 +467,79 @@
                     <div class="price-item">
                         <div class="price-type">英国一件代发价（含运费含关税）</div>
                         <div class="price-amount">8700</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 新增各平台参考价格部分 -->
+            <div class="platform-section">
+                <div class="platform-header">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>各平台参考价格</h3>
+                </div>
+                <div class="platform-grid">
+                    <div class="region-block">
+                        <div class="region-name">欧洲</div>
+                        <div class="platform-item">
+                            <div class="platform-name">Allegro</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 5699PLN</div>
+                                <div class="promo-price">活动价: 5499PLN</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">法国平台</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1699€</div>
+                                <div class="promo-price">活动价: 1599€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1699€</div>
+                                <div class="promo-price">活动价: 1599€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1599€</div>
+                                <div class="promo-price">活动价: 1499€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1699€</div>
+                                <div class="promo-price">活动价: 1599€</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="region-block">
+                        <div class="region-name">英国</div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1599£</div>
+                                <div class="promo-price">活动价: 1499£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1599£</div>
+                                <div class="promo-price">活动价: 1499£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1699€</div>
+                                <div class="promo-price">活动价: 1599€</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -502,6 +669,79 @@
                     </div>
                 </div>
             </div>
+            <!-- 新增各平台参考价格部分 -->
+            <div class="platform-section">
+                <div class="platform-header">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>各平台参考价格</h3>
+                </div>
+                <div class="platform-grid">
+                    <div class="region-block">
+                        <div class="region-name">欧洲</div>
+                        <div class="platform-item">
+                            <div class="platform-name">Alegro</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 5399PLN</div>
+                                <div class="promo-price">活动价: 5199PLN</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">法国平台</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499€</div>
+                                <div class="promo-price">活动价: 1399€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499€</div>
+                                <div class="promo-price">活动价: 1399€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499€</div>
+                                <div class="promo-price">活动价: 1399€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499€</div>
+                                <div class="promo-price">活动价: 1399€</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="region-block">
+                        <div class="region-name">英国</div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499£</div>
+                                <div class="promo-price">活动价: 1399£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1499£</div>
+                                <div class="promo-price">活动价: 1399£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1699€</div>
+                                <div class="promo-price">活动价: 1599€</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="specs-section">
                 <div class="specs-category">装柜信息</div>
                 <table class="spec-table">
@@ -604,6 +844,7 @@
                     <i class="metric-icon fas fa-road"></i>
                     <div class="metric-value">30 - 40km</div>
                     <div class="metric-label">纯电续航</div>
+                
                 </div>
             </div>
             <div class="price-section">
@@ -625,6 +866,56 @@
                     <div class="price-item">
                         <div class="price-type">英国一件代发价</div>
                         <div class="price-amount" style="color: #888; font-weight: normal;">无</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 新增各平台参考价格部分 -->
+            <div class="platform-section">
+                <div class="platform-header">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>各平台参考价格</h3>
+                </div>
+                <div class="platform-grid">
+                    <div class="region-block">
+                        <div class="region-name">欧洲</div>
+                        <div class="platform-item">
+                            <div class="platform-name">Allegro</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 4699PLN</div>
+                                <div class="promo-price">活动价: 4499PLN</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">法国平台</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1299€</div>
+                                <div class="promo-price">活动价: 1199€</div>
+                            
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1299€</div>
+                                <div class="promo-price">活动价: 1199€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1299€</div>
+                                <div class="promo-price">活动价: 1199€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1299€</div>
+                                <div class="promo-price">活动价: 1199€</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -754,6 +1045,79 @@
                     </div>
                 </div>
             </div>
+            <!-- 新增各平台参考价格部分 -->
+            <div class="platform-section">
+                <div class="platform-header">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe-europe"></i>
+                    </div>
+                    <h3>各平台参考价格</h3>
+                </div>
+                <div class="platform-grid">
+                    <div class="region-block">
+                        <div class="region-name">欧洲</div>
+                        <div class="platform-item">
+                            <div class="platform-name">Alegro</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 8999PLN</div>
+                                <div class="promo-price">活动价: 7999PLN</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">法国平台</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 2099€</div>
+                                <div class="promo-price">活动价: 1999€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 2099€</div>
+                                <div class="promo-price">活动价: 1999€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 2099€</div>
+                                <div class="promo-price">活动价: 1999€</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 2099€</div>
+                                <div class="promo-price">活动价: 1999€</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="region-block">
+                        <div class="region-name">英国</div>
+                        <div class="platform-item">
+                            <div class="platform-name">亚马逊</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1999£</div>
+                                <div class="promo-price">活动价: 1899£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">速卖通</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 1999£</div>
+                                <div class="promo-price">活动价: 1899£</div>
+                            </div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-name">独立站</div>
+                            <div class="platform-price">
+                                <div class="normal-price">日常价: 2099€</div>
+                                <div class="promo-price">活动价: 1999€</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="specs-section">
                 <div class="specs-category">装柜信息</div>
                 <table class="spec-table">
@@ -799,7 +1163,7 @@
                 <div class="specs-category">制动系统</div>
                 <table class="spec-table">
                     <tr><td>制动方式</td><td>液压制动</td></tr>
-                    <tr><td>制动距离</td><td>2 - 5m</td></tr>
+                    <tr><td>制动距离</td><td>2-5m</td></tr>
                 </table>
                 <div class="specs-category">灯光系统</div>
                 <table class="spec-table">
@@ -820,8 +1184,8 @@
                 </table>
                 <div class="specs-category">轮胎</div>
                 <table class="spec-table">
-                    <tr><td>前轮</td><td>20英寸（铝合金车圈）</td></tr>
-                    <tr><td>后轮</td><td>20英寸（铝合金车圈）</td></tr>
+                    <tr><td>前轮</td><td>20英寸  （铝合金车圈）</td></tr>
+                    <tr><td>后轮</td><td>20英寸  （铝合金车圈）</td></tr>
                 </table>
                 <div class="specs-category">车架颜色</div>
                 <table class="spec-table">
@@ -832,30 +1196,34 @@
     </div>
 
     <script>
-        // 选项卡切换逻辑
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const productCards = document.querySelectorAll('.product-card');
+        // 选项卡切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const productCards = document.querySelectorAll('.product-card');
 
-        function showProduct(productId) {
-            // 重置所有卡片和按钮
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            productCards.forEach(card => card.classList.remove('active'));
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // 为当前点击的按钮添加active类
+                    this.classList.add('active');
 
-            // 激 活对应按钮和卡片
-            document.querySelector(`[data-product="${productId}"]`).classList.add('active');
-            document.getElementById(productId).classList.add('active');
-        }
+                    const productId = this.getAttribute('data-product');
 
-        // 初始加载显示第一个卡片
-        showProduct('s600');
+                    // 隐藏所有产品卡片
+                    productCards.forEach(card => {
+                        card.classList.remove('active');
+                    });
 
-        // 点击事件监听
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const productId = button.dataset.product;
-                showProduct(productId);
+                    // 显示选中的产品卡片
+                    const activeCard = document.getElementById(productId);
+                    if (activeCard) {
+                        activeCard.classList.add('active');
+                    }
+                });
             });
         });
     </script>
 </body>
 </html>
+    
